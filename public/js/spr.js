@@ -1,5 +1,4 @@
-// spr.js - Handles sprite loading and fonts
-let letters = "!\"#$%'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQUSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~"
+// spr.js - Handles sprites, fonts, and hitboxes
 let letters = "!\"#$%'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQUSTUVWXYZ[\\]^_abcdefghijklmnopqrstuvwxyz{|}~";
 
 class Sprite {
@@ -167,5 +166,30 @@ class BitFont {
             // If not, return false
             return false;
         }
+    }
+}
+
+Number.prototype.between = function(a, b, inclusive) {
+    let min = Math.min(a, b),
+        max = Math.max(a, b);
+
+    return inclusive ? this >= min && this <= max : this > min && this < max;
+}
+
+class Hitbox {
+    constructor(x, y, w, h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+    }
+
+    point(x, y){
+        return (
+            // X Axis
+            x.between(this.x, this.x + this.w, true) &&
+            // Y Axis
+            y.between(this.y, this.y + this.h, true)
+        )
     }
 }
