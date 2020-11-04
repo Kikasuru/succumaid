@@ -40,7 +40,7 @@ function init(){
             });
 
             // Load sprites here
-            for (let i = 0; i < 14; i++) {
+            for (let i = 0; i < 13; i++) {
                 // Make a sprite for this swatch
                 let spr = new Sprite([{src:"assets/swatch.png", color:i + 1}], 8, 8);
                 swatchSpr.push(spr);
