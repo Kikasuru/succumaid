@@ -82,34 +82,48 @@ class Sprite {
 }
 
 class BitFont {
-    constructor(img, widths, space){
-        this.img = img;
+    constructor(src, widths, space){
+        this.src    = src;
         this.widths = widths;
-        this.space = space;
+        this.space  = space;
     }
 
     render(){
-        // Make a new canvas for this font
-        this.canvas = document.createElement("canvas");
+        let font = this;
 
-        // Resize this canvas
-        this.canvas.width   = this.img.width;
-        this.canvas.height  = colorhex.length * this.img.height;
+        return new Promise(function(res, reg) {
+            // Create a new image for the font
+            font.img = new Image();
+            font.img.src = font.src;
 
-        // Add this canvas to the font cache
-        document.getElementById("fonts").appendChild(this.canvas);
+            font.img.onload = function(){
+                // Make a new canvas for this font
+                font.canvas = document.createElement("canvas");
 
-        // Make a new context for the canvas
-        let ctx = this.canvas.getContext("2d");
+                // Resize this canvas
+                font.canvas.width   = font.img.width;
+                font.canvas.height  = colorhex.length * font.img.height;
 
-        // Go through each color
-        for (let c = 0; c < colorhex.length; c++) {
-            // Draw the font onto the canvas
-            ctx.drawImage(this.img, 0, c * this.img.height);
+                // Add this canvas to the font cache
+                document.getElementById("fonts").appendChild(font.canvas);
 
-            // Color the font
-            recolorArea(ctx, c, 0, c * this.img.height, this.img.width, this.img.height);
-        }
+                // Make a new context for the canvas
+                let ctx = font.canvas.getContext("2d");
+
+                // Go through each color
+                for (let c = 0; c < colorhex.length; c++) {
+                    // Draw the font onto the canvas
+                    ctx.drawImage(font.img, 0, c * font.img.height);
+
+                    // Color the font
+                    recolorArea(ctx, c, 0, c * font.img.height, font.img.width, font.img.height);
+                }
+
+                // Resolve with true
+                res(true);
+            }
+        });
+
     }
 
     draw(ctx, text, x, y, color){

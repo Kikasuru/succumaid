@@ -27,10 +27,7 @@ function init(){
         let palimg = new Image();
         palimg.src = "assets/pal.png";
 
-        // Create a new font
-        let fontimg = new Image();
-        fontimg.src = "assets/font.png"
-        let font = new BitFont(fontimg, "46987333673737747777777733575787777777757778777777777977747457777777773573977777777797775355", 4);
+        let font = new BitFont("assets/font.png", "46987333673737747777777733575787777777757778777777777977747457777777773573977777777797775355", 4);
 
         palimg.onload = function(){
             createCHexObject(palimg, 0);
