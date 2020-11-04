@@ -1,6 +1,5 @@
 // init.js - Handles initial setup
-
-let zoom = 2
+let zoom = 2;
 
 // Starts the main loop
 function init(){
@@ -29,14 +28,27 @@ function init(){
 
         let font = new BitFont("assets/font.png", "46987333673737747777777733575787777777757778777777777977747457777777773573977777777797775355", 4);
 
+        let swatchSpr = [];
+        let swatchHit = [];
+
         palimg.onload = function(){
             createCHexObject(palimg, 0);
 
-            fontimg.onload = function(){
-                font.render();
-
+            font.render().then(function(){
                 // Start the loop
                 setInterval(main,16);
+            });
+
+            // Load sprites here
+            for (let i = 0; i < 14; i++) {
+                // Make a sprite for this swatch
+                let spr = new Sprite([{src:"assets/swatch.png", color:i + 1}], 8, 8);
+                swatchSpr.push(spr);
+                spr.render();
+
+                // Make a hitbox for this swatch
+                let hit = new Hitbox((8 * i) + 1, canvas.height - 9, 8, 8);
+                swatchHit.push(hit);
             }
         }
 
@@ -46,18 +58,26 @@ function init(){
 
         function main() {
             // Clear the screen
-            ctx.fillStyle = coltohex(colorhex[color.BLACK][3]);
-            ctx.fillRect(0, 0, Math.floor(window.innerWidth/zoom),Math.floor(window.innerHeight/zoom));
+            ctx.fillStyle = coltohex(colorhex[currColor][3]);
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // If the mouse was clicked..
-            if (mouse.press.left || mouse.press.right) {
-                // ..change the color!
-                currColor = (currColor % 14) + 1;
+            // If the mouse was clicked, check if it clicked a swatch
+            if (mouse.press.left) {
+                swatchHit.forEach(function(e, i){
+                    if (e.point(mouse.x, mouse.y)) {
+                        currColor = i + 1;
+                    }
+                });
             }
 
-            font.draw(ctx, "The quick brown fox jumps over the lazy dog.", mouse.x, mouse.y, currColor);
+            // Render swatches
+            swatchSpr.forEach(function(e, i){
+                e.draw(ctx, 0, (8 * i) + 1, canvas.height - 9);
+            });
 
-            font.draw(ctx, "Kikasuru 2020", Math.floor(window.innerWidth/zoom) - 86, Math.floor(window.innerHeight/zoom) - 7, color.BLACK)
+            font.draw(ctx, "The quick brown fox jumps over the lazy dog.", 16, 16, currColor);
+
+            font.draw(ctx, "Kikasuru 2020", canvas.width - 86, canvas.height - 7, currColor)
 
             // Reset presses
             mouse.resetPresses();
