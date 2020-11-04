@@ -66,6 +66,9 @@ class BitFont {
                 // Apply the width to the offset
                 xoffset += width;
             }
+
+            // Return the width of the whole text.
+            return xoffset
         } else {
             // If not, return false
             return false;
