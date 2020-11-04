@@ -187,9 +187,9 @@ class Hitbox {
     point(x, y){
         return (
             // X Axis
-            x.between(this.x, this.x + this.w, false) &&
+            x.between(this.x, this.x + this.w, true) &&
             // Y Axis
-            y.between(this.y, this.y + this.h, false)
+            y.between(this.y, this.y + this.h, true)
         )
     }
 }
