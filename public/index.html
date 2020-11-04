@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Muli', sans-serif;
+            user-select: none;
+            font-smooth: never;
+            -webkit-font-smoothing : none;
+        }
+        #main {
+            image-rendering: pixelated;
+            height:100%;
+            width:100%;
+        }
+    </style>
+
+    <!-- Load Scripts -->
+    <script src="js/init.js"></script>
+    <script src="js/pal.js"></script>
+    <script src="js/spr.js"></script>
+    <script src="js/input.js"></script>
+</head>
+<body onload="init()" onresize="resize()">
+    <!-- Containers for other canvases -->
+    <span id="spr" style="display:none;"></span>
+    <span id="fonts" style="display:none;"></span>
+
+    <!-- Main Canvas -->
+    <canvas id="main"></canvas>
+</body>
