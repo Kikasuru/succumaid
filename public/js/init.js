@@ -50,7 +50,7 @@ function init(){
         function main() {
             // Clear the screen
             ctx.fillStyle = coltohex(colorhex[color.BLACK][3]);
-            ctx.fillRect(0,0,(window.innerWidth/zoom),(window.innerHeight/zoom));
+            ctx.fillRect(0, 0, Math.floor(window.innerWidth/zoom),Math.floor(window.innerHeight/zoom));
 
             // If the mouse was clicked..
             if (mouse.press.left || mouse.press.right) {
@@ -59,6 +59,8 @@ function init(){
             }
 
             font.draw(ctx, "The quick brown fox jumps over the lazy dog.", mouse.x, mouse.y, currColor);
+
+            font.draw(ctx, "Kikasuru 2020", Math.floor(window.innerWidth/zoom) - 86, Math.floor(window.innerHeight/zoom) - 7, color.BLACK)
 
             // Reset presses
             mouse.resetPresses();
@@ -75,6 +77,6 @@ function resize(){
     let canvas = document.getElementById("main");
 
     // Set Canvas Size
-    canvas.width = (window.innerWidth/zoom);
-    canvas.height = (window.innerHeight/zoom);
+    canvas.width = Math.floor(window.innerWidth/zoom);
+    canvas.height = Math.floor(window.innerHeight/zoom);
 }
