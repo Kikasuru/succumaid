@@ -8,7 +8,7 @@ const color = {
     CHOCOLATE: 4,
     RED: 5,
     GOLD: 6,
-    YELLOW 7,
+    YELLOW: 7,
     LIME_GREEN: 8,
     AQUAMARINE: 9,
     BABY_BLUE: 10,
